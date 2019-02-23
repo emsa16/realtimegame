@@ -12,7 +12,7 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "eject": "react-scripts eject",
-    "deploy": "yarn build && rsync -av build/* deploy@emilsandberg.com:/var/www/me.emilsandberg.com/html/",
+    "deploy": "yarn build && rsync -av build/* deploy@emilsandberg.com:/var/www/XXX/html/",
     "tag-prepare": "grep version package.json && git describe --abbrev=0 && git status",
     "htmlhint": "[ ! -f .htmlhintrc ] || htmlhint --ignore build/**,node_modules/**,coverage/** | grep -v 'Config loaded:'",
     "stylelint": "[ ! -f .stylelintrc.json ] || stylelint **/*.css",
@@ -29,7 +29,7 @@
   "bugs": {
     "url": "https://github.com/emsa16/realtimegame-frontend/issues"
   },
-  "homepage": "https://github.com/emsa16/realtimegame-backend#readme",
+  "homepage": "XXX",
   "eslintConfig": {
     "extends": "react-app"
   },
