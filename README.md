@@ -1,10 +1,10 @@
 # Realtime game app - Frontend
 
-[![Build Status](https://travis-ci.org/emsa16/ramverk2-me.svg?branch=master)](https://travis-ci.org/emsa16/ramverk2-me)
-[![CircleCI](https://circleci.com/gh/emsa16/ramverk2-me.svg?style=svg)](https://circleci.com/gh/emsa16/ramverk2-me)
-[![Maintainability](https://api.codeclimate.com/v1/badges/e01f59ff40dc859e5645/maintainability)](https://codeclimate.com/github/emsa16/ramverk2-me/maintainability)
-[![Test Coverage](https://api.codeclimate.com/v1/badges/e01f59ff40dc859e5645/test_coverage)](https://codeclimate.com/github/emsa16/ramverk2-me/test_coverage)
-[![BCH compliance](https://bettercodehub.com/edge/badge/emsa16/ramverk2-me?branch=master)](https://bettercodehub.com/results/emsa16/ramverk2-me)
+[![Build Status](https://travis-ci.org/emsa16/realtimegame-frontend.svg?branch=master)](https://travis-ci.org/emsa16/realtimegame-frontend)
+[![CircleCI](https://circleci.com/gh/emsa16/realtimegame-frontend.svg?style=svg)](https://circleci.com/gh/emsa16/realtimegame-frontend)
+[![Maintainability](https://api.codeclimate.com/v1/badges/d9f4c10ebbcae843bd92/maintainability)](https://codeclimate.com/github/emsa16/realtimegame-frontend/maintainability)
+[![Test Coverage](https://api.codeclimate.com/v1/badges/d9f4c10ebbcae843bd92/test_coverage)](https://codeclimate.com/github/emsa16/realtimegame-frontend/test_coverage)
+[![BCH compliance](https://bettercodehub.com/edge/badge/emsa16/realtimegame-frontend?branch=master)](https://bettercodehub.com/results/emsa16/realtimegame-frontend)
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
@@ -15,8 +15,8 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 ## Installation
 
-    $ git clone https://github.com/emsa16/XXX
-    $ cd XXX
+    $ git clone https://github.com/emsa16/realtimegame-frontend.git
+    $ cd realtimegame-frontend
     $ yarn install
     $ yarn test
 
