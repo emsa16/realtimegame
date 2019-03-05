@@ -25,7 +25,7 @@
     "url": "git+https://github.com/emsa16/realtimegame-frontend.git"
   },
   "author": "Emil Sandberg",
-  "license": "ISC",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/emsa16/realtimegame-frontend/issues"
   },
