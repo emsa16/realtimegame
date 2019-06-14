@@ -1,0 +1,66 @@
+.content {
+    height: 320px;
+    width: 320px;
+    position: absolute;
+}
+
+
+.baddie {
+    position: absolute;
+    z-index: 10;
+    width: 32px;
+    height: 32px;
+    background-repeat: no-repeat;
+}
+
+.baddie-ninja {
+    background-image: url(./baddies/Ninja.png);
+}
+
+.baddie-pirate {
+    background-image: url(./baddies/Pirate.png);
+}
+
+.baddie-borg {
+    background-image: url(./baddies/Borg.png);
+}
+
+.baddie-basic {
+    background-image: url(./baddies/Basic.png);
+}
+
+.baddie-fox {
+    background-image: url(./baddies/Fox.png);
+}
+
+.baddie-left {
+    -o-transform: rotateY(180deg);
+    -ms-transform: rotateY(180deg);
+    -webkit-transform: rotateY(180deg);
+    -moz-transform: rotateY(180deg);
+    transform: rotateY(180deg);
+}
+
+.tile,
+.t {
+    width: 32px;
+    height: 32px;
+    float: left;
+    background-repeat: no-repeat;
+}
+
+.t10 {
+    background: url(./tiles/grass0.png);
+}
+
+.t11 {
+    background: url(./tiles/dngn_metal_wall.png) -32px -96px;
+}
+
+.t13 {
+    background: url(./tiles/dngn_closed_door.png) -64px -128px;
+}
+
+.t14 {
+    background: url(./tiles/dngn_shoals_deep_water3.png);
+}
