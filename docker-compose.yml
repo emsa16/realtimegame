@@ -1,0 +1,32 @@
+version: "3"
+services:
+    node-latest:
+        image: "emsa16/realtimegame-frontend:node-latest"
+        build:
+            context: .
+            dockerfile: docker/Dockerfile-node-latest
+        ports:
+            - "8030:3000"
+        volumes:
+            - ./:/home/node/app
+            - /home/node/app/node_modules/
+    node-10:
+        image: "emsa16/realtimegame-frontend:node-10"
+        build:
+            context: .
+            dockerfile: docker/Dockerfile-node-10
+        ports:
+            - "8031:3000"
+        volumes:
+            - ./:/home/node/app
+            - /home/node/app/node_modules/
+    node-8:
+        image: "emsa16/realtimegame-frontend:node-8"
+        build:
+            context: .
+            dockerfile: docker/Dockerfile-node-8
+        ports:
+            - "8032:3000"
+        volumes:
+            - ./:/home/node/app
+            - /home/node/app/node_modules/

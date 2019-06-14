@@ -18,7 +18,16 @@
     "stylelint": "[ ! -f .stylelintrc.json ] || stylelint **/*.css",
     "stylelint-fix": "[ ! -f .stylelintrc.json ] || stylelint **/*.css --fix",
     "eslint": "[ ! -f .eslintrc.json ] || eslint .",
-    "eslint-fix": "[ ! -f .eslintrc.json ] || eslint --fix ."
+    "eslint-fix": "[ ! -f .eslintrc.json ] || eslint --fix .",
+    "docker-build": "docker-compose build",
+    "docker-start": "docker-compose up -d",
+    "docker-stop": "docker-compose down",
+    "docker-node1": "docker-compose up -d node-latest",
+    "docker-node2": "docker-compose up -d node-10",
+    "docker-node3": "docker-compose up -d node-8",
+    "test-node1": "docker-compose run node-latest yarn test",
+    "test-node2": "docker-compose run node-10 yarn test",
+    "test-node3": "docker-compose run node-8 yarn test"
   },
   "repository": {
     "type": "git",
