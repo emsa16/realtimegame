@@ -8,24 +8,29 @@
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-## Requirements
 
-- node
+## Requirements
+- Node
 - yarn
 
-## Installation
 
+## Installation
     $ git clone https://github.com/emsa16/realtimegame-frontend.git
     $ cd realtimegame-frontend
     $ yarn install
+
+
+## Test
     $ yarn test
 
-## Running the app
+See below also commands for running tests in Docker.
 
-    $ yarn start    # Runs the app in development mode. View at [http://localhost:3000](http://localhost:3000)
+
+## Usage
+    $ yarn start    # Runs the app in development mode. View at http://localhost:3000
     $ yarn build    # Builds the app for production to the `build` folder
+    $ yarn deploy   # Builds the app for production and transfers files to production server (requires SSH authentication)
 
-    NOT YET IMPLEMENTED
-    $ yarn deploy   # Builds the app for production and transfers files to production server
+
 
 BTH 2019

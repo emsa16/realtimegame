@@ -6,13 +6,13 @@
     "preinstall": "([ -d .bin ] || mkdir .bin) && ([ -d build ] || mkdir build) && rm -rf build/*",
     "clean": "rm -rf build cache/*/* npm-debug.log coverage",
     "preclean-all": "yarn clean",
-    "clean-all": "rm -rf .bin vendor node_modules",
+    "clean-all": "rm -rf .bin vendor node_modules yarn.lock",
     "pretest": "yarn htmlhint && yarn stylelint && yarn eslint",
-    "test": "react-scripts test --coverage",
+    "test": "react-scripts test --coverage --verbose",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "eject": "react-scripts eject",
-    "deploy": "yarn build && rsync -av build/* deploy@emilsandberg.com:/var/www/XXX/html/",
+    "deploy": "yarn build && rsync -av build/* deploy@emilsandberg.com:/var/www/game.emilsandberg.com/html/",
     "tag-prepare": "grep version package.json && git describe --abbrev=0 && git status",
     "htmlhint": "[ ! -f .htmlhintrc ] || htmlhint --ignore build/**,node_modules/**,coverage/** | grep -v 'Config loaded:'",
     "stylelint": "[ ! -f .stylelintrc.json ] || stylelint **/*.css",
@@ -29,7 +29,7 @@
   "bugs": {
     "url": "https://github.com/emsa16/realtimegame-frontend/issues"
   },
-  "homepage": "XXX",
+  "homepage": "https://game.emilsandberg.com",
   "eslintConfig": {
     "extends": "react-app"
   },
