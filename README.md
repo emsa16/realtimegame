@@ -6,7 +6,9 @@
 [![Test Coverage](https://api.codeclimate.com/v1/badges/d9f4c10ebbcae843bd92/test_coverage)](https://codeclimate.com/github/emsa16/realtimegame-frontend/test_coverage)
 [![BCH compliance](https://bettercodehub.com/edge/badge/emsa16/realtimegame-frontend?branch=master)](https://bettercodehub.com/results/emsa16/realtimegame-frontend)
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This repo is the frontend half of a realtime game prototype. The backend can be found [here](https://github.com/emsa16/realtimegame-backend).
+
+This project uses React and was bootstrapped with [Create React App](https://github.com/facebook/create-react-app). There are Dockerfiles available to test the project in different versions of Node.
 
 
 ## Requirements
