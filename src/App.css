@@ -61,7 +61,12 @@ main,
 
 .game-container {
     display: flex;
-    justify-content: space-evenly;
+    justify-content: center;
+}
+
+.instructions {
+    clear: both;
+    text-align: center;
 }
 
 
@@ -72,7 +77,9 @@ main,
 }
 
 .login,
-.register {
+.register,
+.chat,
+.game-field {
     margin: 20px;
 }
 
@@ -80,7 +87,7 @@ label {
     display: block;
 }
 
-input[type=submit] {
+.login-section input[type=submit] {
     display: block;
 }
 
@@ -89,17 +96,4 @@ input[type=submit] {
     margin-left: auto;
     margin-right: auto;
     text-align: center;
-}
-
-.button {
-    width: 50px;
-    font: bold 11px Arial;
-    text-decoration: none;
-    background-color: #eee;
-    color: #333;
-    padding: 2px 6px;
-    border-top: 1px solid #ccc;
-    border-right: 1px solid #333;
-    border-bottom: 1px solid #333;
-    border-left: 1px solid #ccc;
 }

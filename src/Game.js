@@ -58,8 +58,6 @@ class Game extends Component {
     }
 
     componentDidMount() {
-        document.title = "THE GAME";
-
         // Set starting position of baddie
         this.setState({
             "baddie_left": this.baddie_el.offsetLeft,
@@ -177,34 +175,31 @@ class Game extends Component {
 
     render() {
         return (
-            <main>
-                <p>Control the character with the arrow keys</p>
-                <div
-                    id="content"
-                    style={{
-                        width: this.content_width + "px",
-                        height: this.content_height + "px"
-                    }}
-                    className = "content"
-                >
-                    {this.gameArea.map((item, index) => (
-                        <div className={"tile t" + item} id={"n" + index} key={index} />
-                    ))}
+            <div
+                id="game-field"
+                style={{
+                    width: this.content_width + "px",
+                    height: this.content_height + "px"
+                }}
+                className = "game-field"
+            >
+                {this.gameArea.map((item, index) => (
+                    <div className={"tile t" + item} id={"n" + index} key={index} />
+                ))}
 
-                    <div
-                        id="baddie"
-                        ref={this.baddie_el}
-                        style={{
-                            left: this.state.baddie_left + "px",
-                            top: this.state.baddie_top + "px"
-                        }}
-                        className = {"baddie "
-                                    + this.state.baddie_type
-                                    + this.state.baddie_class}
-                    >
-                    </div>
+                <div
+                    id="baddie"
+                    ref={this.baddie_el}
+                    style={{
+                        left: this.state.baddie_left + "px",
+                        top: this.state.baddie_top + "px"
+                    }}
+                    className = {"baddie "
+                                + this.state.baddie_type
+                                + this.state.baddie_class}
+                >
                 </div>
-            </main>
+            </div>
         );
     }
 }

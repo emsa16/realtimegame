@@ -43,15 +43,14 @@ class Login extends Component {
                     });
 
                     if (result.token) {
-                        localStorage.setItem("JWT_TOKEN", result.token);
-                        this.props.login();
+                        this.props.login(result.token);
                     }
                 }
             });
     }
 
     render() {
-        if (this.props.isLoggedIn) {
+        if (this.props.loginToken) {
             return <Redirect to='/' />;
         }
 

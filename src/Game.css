@@ -1,7 +1,7 @@
-.content {
-    height: 320px;
-    width: 320px;
-    position: absolute;
+.game-field {
+    height: 480px;
+    width: 480px;
+    position: relative;
 }
 
 
