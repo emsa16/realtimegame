@@ -12,6 +12,7 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 ## Requirements
 - Node
 - yarn
+- backend API running on the address pointed to in `src/api.js`
 
 
 ## Installation
@@ -30,6 +31,9 @@ See below also commands for running tests in Docker.
     $ yarn start    # Runs the app in development mode. View at http://localhost:3000
     $ yarn build    # Builds the app for production to the `build` folder
     $ yarn deploy   # Builds the app for production and transfers files to production server (requires SSH authentication)
+
+It is also possible to run React in development mode on other ports than the standard port 3000. To use another port, the environment variable `PORT=XXXX` needs to be added before `yarn start`
+
 
 ## Running in Docker
     $ yarn docker-node1     # node latest-alpine (test on http://localhost:8030)
