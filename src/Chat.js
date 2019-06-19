@@ -14,7 +14,6 @@ class Chat extends Component {
         // this.url = "wss://ws.emilsandberg.com/";
         this.state = {
             message: "",
-            nickname: "",
             output: "",
             conn_status: "",
             connect_button_color: "#000",
@@ -43,6 +42,10 @@ class Chat extends Component {
 
 
     componentDidUpdate() {
+        if (this.props.outGoingMessage && this.websocket && this.websocket.readyState === 1) {
+            this.formatMessageOut(this.props.outGoingMessage);
+            this.props.messageSent();
+        }
         this.scrollToBottom();
     }
 
@@ -78,13 +81,27 @@ class Chat extends Component {
         const nick = ("nickname" in msg && msg.nickname) ? msg.nickname : "anonymous";
         const origin = ("origin" in msg && msg.origin) ? msg.origin : "server";
 
-        if (data) {
-            if ("server" === origin) {
-                this.outputLog(`Server: ${data}`);
-            } else {
-                this.outputLog(`${nick}: ${data}`);
-            }
+        if (!data) {
+            return;
         }
+
+        if (typeof data === 'object') {
+            if ("action" in data && "remove" === data.action) {
+                this.props.removefromBaddies(data.nickname);
+                return;
+            }
+
+            let position = ("position" in data && data.position) ? data.position : "";
+
+            let model = ("model" in data && data.model) ? data.model : "";
+
+            this.props.updateBaddies(nick, model, position);
+            return;
+        }
+
+        const sender = "server" === origin ? "Server" : nick;
+
+        this.outputLog(`${sender}: ${data}`);
     }
 
 
@@ -152,35 +169,49 @@ class Chat extends Component {
             return;
         }
 
-        let fullUrl = `${this.url}?token=${this.props.loginToken}&nickname=${this.state.nickname}`;
+        let fullUrl = `${this.url}?token=${this.props.loginToken}&nickname=${this.props.nickname}`;
 
-        console.log(`Connecting to: ${fullUrl}`);
+        console.log(`Connecting to: ${this.url}`);
         this.websocket = new WebSocket(fullUrl, 'broadcast');
+
+        this.websocket.onerror = function() {
+            this.setState({
+                "conn_status": "Connection error (invalid token?)"
+            });
+        };
+        this.websocket.onerror = this.websocket.onerror.bind(this);
 
         this.websocket.onopen = function() {
             console.log("The websocket is now open.");
-            console.log(this.websocket);
             this.outputLog("You are now connected to chat.");
             this.setState({
                 "conn_status": "Status: Connected",
-                "nickname": "",
                 "connect_button_color": "#D5DBDB",
                 "close_button_color": "#000"
             });
+            this.props.chatIsConnected();
         };
         this.websocket.onopen = this.websocket.onopen.bind(this);
 
         this.websocket.onmessage = function(event) {
             console.log(`Receiving message: ${event.data}`);
-            console.log(event);
-            console.log(this.websocket);
             this.parseIncomingMessage(event.data);
         };
         this.websocket.onmessage = this.websocket.onmessage.bind(this);
 
-        this.websocket.onclose = function() {
+        this.websocket.onclose = function(event) {
+            this.props.chatIsDisconnected();
+            if (1006 === event.code) {
+                console.log("The websocket closed unexpectedly.");
+                this.outputLog("Chat connection has closed unexpectedly.");
+                this.setState({
+                    "conn_status": "Connection error (invalid token?)",
+                    "connect_button_color": "#000",
+                    "close_button_color": "#D5DBDB"
+                });
+                return;
+            }
             console.log("The websocket is now closed.");
-            console.log(this.websocket);
             this.outputLog("Chat connection is now closed.");
             this.setState({
                 "conn_status": "Status: Disconnected",
@@ -204,7 +235,6 @@ class Chat extends Component {
 
         console.log("Closing websocket.");
         this.websocket.close(1000, "Client closing connection by intention.");
-        console.log(this.websocket);
         this.outputLog("Closing chat.");
     }
 
@@ -226,9 +256,8 @@ class Chat extends Component {
                 </form>
                 <form id="connect_form" onSubmit={this.connect}>
                     <p>
-                        <input id="nickname" type="text" placeholder="Enter nickname" value={this.state.nickname} onChange={this.handleInputChange} />
-                        <input id="connect" type="submit" value="Connect" style={{color: this.state.connect_button_color}} />
-                        <input id="close" type="button" value="Close connection" style={{color: this.state.close_button_color}} onClick={this.close} />
+                        <input id="connect" type="submit" value="Enter game" style={{color: this.state.connect_button_color}} />
+                        <input id="close" type="button" value="Leave game" style={{color: this.state.close_button_color}} onClick={this.close} />
                         <span id="status">{this.state.conn_status}</span>
                     </p>
                 </form>

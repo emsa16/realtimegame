@@ -1,4 +1,4 @@
-/*eslint no-unused-vars: "off"*/
+/*eslint no-unused-vars: "off", max-len: "off"*/
 import React, { Component } from 'react';
 import './Game.css';
 
@@ -9,24 +9,13 @@ class Game extends Component {
     constructor(props) {
         super(props);
 
-        // Sets content size to match TILESIZE and GRIDSIZE
-        this.content_width = GRIDSIZE * TILESIZE;
-        this.content_height = GRIDSIZE * TILESIZE;
-
         this.state = {
-            baddie_class: " ",
-            baddie_type: "baddie-ninja ", //TEMP get from db
-
-            //Position of baddie in window
-            baddie_left: 0,
-            baddie_top: 0,
-
-            //Position of baddie in the grid
-            baddie_grid_left: 0,
-            baddie_grid_top: 0,
+            nickname: "",
+            baddie_model: "",
+            baddie_dir: " ",
+            baddie_x: 7,
+            baddie_y: 7
         };
-
-        this.baddie_el = React.createRef();
 
         this.keypress = this.keypress.bind(this);
 
@@ -58,13 +47,6 @@ class Game extends Component {
     }
 
     componentDidMount() {
-        // Set starting position of baddie
-        this.setState({
-            "baddie_left": this.baddie_el.offsetLeft,
-            "baddie_top": this.baddie_el.offsetTop
-        });
-
-        this.moveBaddie(1, 1);
         document.addEventListener("keydown", this.keypress);
     }
 
@@ -76,8 +58,8 @@ class Game extends Component {
      */
     isBaddieMovable(moveLeft, moveTop) {
         // This time we want the grid position values, not the pixel position values
-        let newLeft = this.state.baddie_grid_left + moveLeft,
-            newTop = this.state.baddie_grid_top + moveTop,
+        let newLeft = this.state.baddie_x + moveLeft,
+            newTop = this.state.baddie_y + moveTop,
 
             movable = false,
 
@@ -119,21 +101,22 @@ class Game extends Component {
      * @param  {[type]} y	- direction to move vertically
      */
     moveBaddie(x, y) {
+        let direction = x > 0 ? "r" : x < 0 ? "l" : this.state.baddie_dir === "baddie-left " ? "l" : "r";
+
+        this.props.sendToChat(`/move ${this.state.baddie_x + x},${this.state.baddie_y + y},${direction}`);
+
         // Update baddies grid position variables
         this.setState((state) => ({
-            "baddie_grid_left": state.baddie_grid_left + x,
-            "baddie_grid_top": state.baddie_grid_top + y,
-        }));
-
-        // Assign left and right to the pixel positions inside the area that the baddie is moving to
-        // x and y are the grid coordinates, so you take TILESIZE and use that to get the pixels
-        this.setState( (state) => ({
-            "baddie_left": state.baddie_grid_left * TILESIZE,
-            "baddie_top": state.baddie_grid_top * TILESIZE
+            "baddie_x": state.baddie_x + x,
+            "baddie_y": state.baddie_y + y,
         }));
     }
 
     keypress(event) {
+        if (!this.props.isConnected) {
+            return;
+        }
+
         // Gets what key was pressed as number
         let key = event.keyCode || event.which;
 
@@ -142,7 +125,7 @@ class Game extends Component {
             case 37: //left
                 if (this.isBaddieMovable(-1, 0)) {
                     // Turn baddie left - transform handled in style.css
-                    this.setState({"baddie_class": "baddie-left "});
+                    this.setState({"baddie_dir": "baddie-left "});
                     this.moveBaddie(-1, 0);
                 }
                 break;
@@ -154,7 +137,7 @@ class Game extends Component {
             case 39: //right
                 if (this.isBaddieMovable(1, 0)) {
                     // Turn baddie right - transform handled in style.css
-                    this.setState({"baddie_class": " "});
+                    this.setState({"baddie_dir": " "});
                     this.moveBaddie(1, 0);
                 }
                 break;
@@ -173,13 +156,89 @@ class Game extends Component {
         event.preventDefault();
     }
 
+    componentDidUpdate() {
+        let player = this.props.player;
+
+        if (Object.keys(player).length > 0) {
+            let [x, y, dir] = player.position.split(',');
+
+            let baddieDir = dir === "l" ? "baddie-left " : " ";
+
+            this.setState({
+                nickname: player.nickname,
+                baddie_model: player.model,
+                baddie_dir: baddieDir,
+                baddie_x: parseInt(x),
+                baddie_y: parseInt(y)
+            });
+            this.props.playerLoaded();
+        }
+    }
+
+    displayBaddie() {
+        if (!this.props.isConnected) {
+            return;
+        }
+
+        return (
+            <div
+                style={{
+                    left: this.state.baddie_x * TILESIZE + "px",
+                    top: this.state.baddie_y * TILESIZE + "px"
+                }}
+                className = {"baddie-container"}
+            >
+                <div
+                    className = {"baddie baddie-"
+                                + (this.state.baddie_model || "basic")
+                                + " "
+                                + this.state.baddie_dir}
+                />
+                <div className="player-name">{this.state.nickname}</div>
+            </div>
+        );
+    }
+
+    displayOtherBaddies() {
+        if (!this.props.isConnected) {
+            return;
+        }
+
+        return Object.keys(this.props.baddies).map((item, index) => {
+            let baddie = this.props.baddies[item];
+
+            let [x, y, dir] = baddie.position.split(',');
+
+            let baddieDir = dir === "l" ? "baddie-left " : " ";
+
+            return (
+                <div
+                    style={{
+                        left: x * TILESIZE + "px",
+                        top: y * TILESIZE + "px"
+                    }}
+                    className = {"baddie-container"}
+                    key={index}
+                >
+                    <div
+                        className = {"baddie baddie-"
+                                + (baddie.model || "basic")
+                                + " "
+                                + baddieDir}
+                    />
+                    <div className="player-name">{item}</div>
+                </div>
+            );
+        });
+    }
+
     render() {
         return (
             <div
                 id="game-field"
                 style={{
-                    width: this.content_width + "px",
-                    height: this.content_height + "px"
+                    width: GRIDSIZE * TILESIZE + "px",
+                    height: GRIDSIZE * TILESIZE + "px"
                 }}
                 className = "game-field"
             >
@@ -187,18 +246,9 @@ class Game extends Component {
                     <div className={"tile t" + item} id={"n" + index} key={index} />
                 ))}
 
-                <div
-                    id="baddie"
-                    ref={this.baddie_el}
-                    style={{
-                        left: this.state.baddie_left + "px",
-                        top: this.state.baddie_top + "px"
-                    }}
-                    className = {"baddie "
-                                + this.state.baddie_type
-                                + this.state.baddie_class}
-                >
-                </div>
+                {this.displayOtherBaddies()}
+
+                {this.displayBaddie()}
             </div>
         );
     }

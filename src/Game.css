@@ -5,12 +5,20 @@
 }
 
 
-.baddie {
+.baddie-container {
     position: absolute;
     z-index: 10;
+}
+
+.baddie {
     width: 32px;
     height: 32px;
     background-repeat: no-repeat;
+}
+
+.player-name {
+    color: white;
+    margin-left: -25%;
 }
 
 .baddie-ninja {
