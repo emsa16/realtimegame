@@ -1,10 +1,9 @@
-/*eslint no-unused-vars: "off", max-len: "off"*/
+/*eslint no-unused-vars: "off"*/
 import React, { Component } from 'react';
 import { BrowserRouter as Router, Route, Link, Redirect } from 'react-router-dom';
 import Login from './Login.js';
 import Register from './Register.js';
-import Chat from './Chat.js';
-import Game from './Game.js';
+import Gamemaster from './Gamemaster.js';
 import './App.css';
 
 class App extends Component {
@@ -38,18 +37,7 @@ class App extends Component {
                     </div>
 
                     <PrivateRoute path="/" loginToken={this.state.loginToken} component={() => (
-                        <div>
-                            <div className="game-container">
-                                <Game />
-                                <Chat loginToken={this.state.loginToken} />
-                            </div>
-                            <div className="instructions">
-                                <h3>Instructions</h3>
-                                <p>Control the character with the arrow keys</p>
-                                <p>Write by clicking in the chat message window</p>
-                                <p>(NOTE: the arrow keys cannot be used to move the text cursor in the message field)</p>
-                            </div>
-                        </div>
+                        <Gamemaster loginToken={this.state.loginToken} />
                     )} />
 
                     <Route path="/login" component={() => (

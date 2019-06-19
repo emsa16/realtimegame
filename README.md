@@ -8,7 +8,7 @@
 
 This repo is the frontend half of a realtime game prototype. The backend can be found [here](https://github.com/emsa16/realtimegame-backend).
 
-This project uses React and was bootstrapped with [Create React App](https://github.com/facebook/create-react-app). There are Dockerfiles available to test the project in different versions of Node.
+This project uses React and was bootstrapped with [Create React App](https://github.com/facebook/create-react-app). There are Dockerfiles available to test the project in development mode in different versions of Node.
 
 
 ## Requirements
