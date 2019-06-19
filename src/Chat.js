@@ -107,17 +107,21 @@ class Chat extends Component {
 
 
     formatMessageOut(messageText) {
-        let nick, data = {"command": "message", "params": {"message": messageText}};
-        const re = /^\/([A-Za-z]+)\s*(\w*)/; // Regex matching '/' commands followed by text, e.g. /nick emil
+        let nick, pos, data = {"command": "message", "params": {"message": messageText}};
+        const re = /^\/([A-Za-z]+)\s*([\w,]*)/; // Regex matching '/' commands followed by text, e.g. /nick emil
         const result = re.exec(messageText);
 
         if (result && result.length > 1) {
             const command = result[1];
 
             switch (command) {
-                case 'nick':
-                    nick = result[2] ? result[2]: "";
-                    data = {"command": "nick", "params": {"nickname": nick}};
+                // case 'nick':
+                //     nick = result[2] ? result[2]: "";
+                //     data = {"command": "nick", "params": {"nickname": nick}};
+                //     break;
+                case 'move':
+                    pos = result[2] ? result[2]: "";
+                    data = {"command": "move", "params": {"position": pos}};
                     break;
                 default:
                     data = {"command": command};
