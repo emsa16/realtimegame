@@ -2,6 +2,7 @@
 import React, { Component } from 'react';
 import Chat from './Chat.js';
 import Game from './Game.js';
+import Player from './Player.js';
 import api from './api';
 
 class Gamemaster extends Component {
@@ -19,6 +20,8 @@ class Gamemaster extends Component {
 
         this.chatIsConnected = this.chatIsConnected.bind(this);
         this.chatIsDisconnected = this.chatIsDisconnected.bind(this);
+        this.playerCreated = this.playerCreated.bind(this);
+        this.updateChatServer = this.updateChatServer.bind(this);
         this.sendToChat = this.sendToChat.bind(this);
         this.messageSent = this.messageSent.bind(this);
         this.updateBaddies = this.updateBaddies.bind(this);
@@ -64,6 +67,31 @@ class Gamemaster extends Component {
         });
     }
 
+    playerCreated() {
+        this.loadPlayer();
+    }
+
+    updateChatServer(update) {
+        fetch(api.url + "player/", {
+            headers: {'x-access-token': this.props.loginToken}
+        })
+            .then(response => response.json())
+            .then(result => {
+                if (result && "nickname" in result && "position" in result) {
+                    if (update.includes("nickname")) {
+                        this.sendToChat(`/nick ${result.nickname}`);
+                    }
+
+                    if (update.includes("model")) {
+                        let [x, y, dir] = result.position.split(',');
+
+                        this.sendToChat(`/move ${x},${y},${dir}`);
+                    }
+                }
+            })
+            .catch(error => console.log(error));
+    }
+
     sendToChat(message) {
         this.setState({outGoingMessage: message});
     }
@@ -93,7 +121,7 @@ class Gamemaster extends Component {
 
     render() {
         return (
-            <div>
+            <div className="gamemaster-container">
                 <div className="game-container">
                     <Game
                         sendToChat={this.sendToChat}
@@ -113,6 +141,13 @@ class Gamemaster extends Component {
                         nickname={this.state.nickname}
                     />
                 </div>
+                <Player
+                    loginToken={this.props.loginToken}
+                    playerCreated={this.playerCreated}
+                    player={this.state.player}
+                    isConnected={this.state.isConnected}
+                    updateChatServer={this.updateChatServer}
+                />
                 <div className="instructions">
                     <h3>Instructions</h3>
                     <p>Control the character with the arrow keys</p>

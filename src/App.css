@@ -65,6 +65,24 @@ main,
     flex-wrap: wrap;
 }
 
+.gamemaster-container {
+    display: flex;
+    flex-direction: column;
+}
+
+.player-creation {
+    text-align: center;
+}
+
+.player-models label {
+    display: inline-block;
+    margin: 5px;
+}
+
+.player-models label .baddie {
+    display: inline-block;
+}
+
 .instructions {
     clear: both;
     text-align: center;

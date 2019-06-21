@@ -1,4 +1,4 @@
-/*eslint no-unused-vars: "off"*/
+/*eslint no-unused-vars: "off", max-len: "off"*/
 import React, { Component } from 'react';
 import { BrowserRouter as Router, Route, Link, Redirect } from 'react-router-dom';
 import Login from './Login.js';
@@ -22,6 +22,13 @@ class App extends Component {
         this.setState({loginToken: token});
     }
 
+    logout() {
+        localStorage.removeItem("JWT_TOKEN");
+        this.setState({
+            loginToken: false
+        });
+    }
+
     logoutLink() {
         if (this.state.loginToken) {
             return <Link className="logout-button" to="/logout"><button>Log out</button></Link>;
@@ -36,8 +43,10 @@ class App extends Component {
                         <div className="site-title">Realtime game prototype</div>
                     </div>
 
-                    <PrivateRoute path="/" loginToken={this.state.loginToken} component={() => (
-                        <Gamemaster loginToken={this.state.loginToken} />
+                    <PrivateRoute exact path="/" loginToken={this.state.loginToken} component={() => (
+                        <Gamemaster
+                            loginToken={this.state.loginToken}
+                        />
                     )} />
 
                     <Route path="/login" component={() => (
@@ -51,8 +60,7 @@ class App extends Component {
                     )} />
 
                     <Route path="/logout" component={() => {
-                        localStorage.removeItem("JWT_TOKEN");
-                        this.setState({loginToken: false});
+                        this.logout();
                         return <Redirect to='/login' />;
                     }} />
 
