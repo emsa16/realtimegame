@@ -163,6 +163,14 @@ class Chat extends Component {
             return;
         }
 
+        if (!this.props.playerIsLoaded) {
+            console.log("Player character is missing");
+            this.setState({
+                "conn_status": "You have no player character yet"
+            });
+            return;
+        }
+
         let fullUrl = `${this.url}?token=${this.props.loginToken}&nickname=${this.props.nickname}`;
 
         console.log(`Connecting to: ${this.url}`);

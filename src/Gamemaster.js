@@ -13,7 +13,8 @@ class Gamemaster extends Component {
             outGoingMessage: "",
             baddies: {},
             player: {},
-            isConnected: false
+            isConnected: false,
+            playerIsLoaded: false
         };
 
         this.loadPlayer();
@@ -63,7 +64,8 @@ class Gamemaster extends Component {
 
     playerLoaded() {
         this.setState({
-            player: {}
+            player: {},
+            playerIsLoaded: true
         });
     }
 
@@ -139,6 +141,7 @@ class Gamemaster extends Component {
                         messageSent={this.messageSent}
                         loginToken={this.props.loginToken}
                         nickname={this.state.nickname}
+                        playerIsLoaded={this.state.playerIsLoaded}
                     />
                 </div>
                 <Player
