@@ -34,7 +34,13 @@ class Chat extends Component {
 
     componentDidUpdate() {
         if (this.props.outGoingMessage && this.websocket && this.websocket.readyState === 1) {
-            this.formatMessageOut(this.props.outGoingMessage);
+            let data = this.formatMessageOut(this.props.outGoingMessage, "game");
+
+            if (data) {
+                console.log(`Sending message: ${data}`);
+                this.websocket.send(data);
+            }
+
             this.props.messageSent();
         }
     }
@@ -104,7 +110,7 @@ class Chat extends Component {
 
 
 
-    formatMessageOut(messageText) {
+    formatMessageOut(messageText, source) {
         let nick, pos, data = {"command": "message", "params": {"message": messageText}};
         const re = /^\/([A-Za-z]+)\s*([\w,]*)/; // Regex matching '/' commands followed by text, e.g. /nick emil
         const result = re.exec(messageText);
@@ -112,11 +118,17 @@ class Chat extends Component {
         if (result && result.length > 1) {
             const command = result[1];
 
+            if ("chat" === source) {
+                console.log(`The ${command} command cannot be performed in this chat`);
+                this.outputLog("The capability to perform this command has been turned off in this chat");
+                return;
+            }
+
             switch (command) {
-                // case 'nick':
-                //     nick = result[2] ? result[2]: "";
-                //     data = {"command": "nick", "params": {"nickname": nick}};
-                //     break;
+                case 'nick':
+                    nick = result[2] ? result[2]: "";
+                    data = {"command": "nick", "params": {"nickname": nick}};
+                    break;
                 case 'move':
                     pos = result[2] ? result[2]: "";
                     data = {"command": "move", "params": {"position": pos}};
@@ -125,7 +137,7 @@ class Chat extends Component {
                     data = {"command": command};
             }
         }
-        this.websocket.send(JSON.stringify(data));
+        return JSON.stringify(data);
     }
 
 
@@ -151,9 +163,13 @@ class Chat extends Component {
             console.log("The websocket is not connected to a server.");
             this.outputLog("You are not connected to the chat.");
         } else {
-            this.formatMessageOut(messageText);
-            console.log(`Sending message: ${messageText}`);
             this.outputLog(`You: ${messageText}`);
+            let data = this.formatMessageOut(messageText, "chat");
+
+            if (data) {
+                console.log(`Sending message: ${data}`);
+                this.websocket.send(data);
+            }
             this.setState({"message": ""});
         }
     }
