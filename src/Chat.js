@@ -4,6 +4,7 @@
  */
 
 import React, { Component } from 'react';
+import MessageContainer from './MessageContainer.js';
 import './Chat.css';
 
 class Chat extends Component {
@@ -19,8 +20,6 @@ class Chat extends Component {
             connect_button_color: "#000",
             close_button_color: "#d5dbdb"
         };
-        this.chatBottom = "";
-
         this.handleInputChange = this.handleInputChange.bind(this);
         this.sendMessage = this.sendMessage.bind(this);
         this.connect = this.connect.bind(this);
@@ -29,14 +28,6 @@ class Chat extends Component {
 
 
 
-    scrollToBottom() {
-        this.chatBottom.scrollIntoView({ alignToTop: "false" });
-    }
-
-
-
-    componentDidMount() {
-        this.scrollToBottom();
     }
 
 
@@ -46,7 +37,6 @@ class Chat extends Component {
             this.formatMessageOut(this.props.outGoingMessage);
             this.props.messageSent();
         }
-        this.scrollToBottom();
     }
 
 
@@ -247,10 +237,7 @@ class Chat extends Component {
     render() {
         return (
             <div className="chat" id="chat">
-                <div id="MessageContainer" className="MessageContainer">
-                    <div className="MessagesList" dangerouslySetInnerHTML={ {__html: this.state.output} } />
-                    <div ref={(el) => { this.chatBottom = el; }} />
-                </div>
+                <MessageContainer output={this.state.output} />
 
                 <form id="message_form" onSubmit={this.sendMessage}>
                     <p>
