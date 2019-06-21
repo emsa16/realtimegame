@@ -28,6 +28,8 @@ class Chat extends Component {
 
 
 
+    componentWillUnmount() {
+        this.close();
     }
 
 
@@ -58,7 +60,7 @@ class Chat extends Component {
         const now = new Date();
         const timestamp = now.toLocaleTimeString();
 
-        this.setState({"output": `${this.state.output}${timestamp} ${message}<br />`});
+        this.setState((state) => ({"output": `${state.output}${timestamp} ${message}<br />`}));
     }
 
 

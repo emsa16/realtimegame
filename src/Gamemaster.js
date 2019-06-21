@@ -39,7 +39,8 @@ class Gamemaster extends Component {
 
     chatIsDisconnected() {
         this.setState({
-            isConnected: false
+            isConnected: false,
+            baddies: {}
         });
     }
 
@@ -49,7 +50,7 @@ class Gamemaster extends Component {
         })
             .then(response => response.json())
             .then(result => {
-                if (result) {
+                if (result && "nickname" in result && "model" in result && "position" in result) {
                     this.setState({
                         nickname: result.nickname,
                         player: {
