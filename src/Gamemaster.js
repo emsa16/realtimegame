@@ -25,7 +25,8 @@ class Gamemaster extends Component {
         this.updateChatServer = this.updateChatServer.bind(this);
         this.sendToChat = this.sendToChat.bind(this);
         this.messageSent = this.messageSent.bind(this);
-        this.updateBaddies = this.updateBaddies.bind(this);
+        this.addToBaddies = this.addToBaddies.bind(this);
+        this.updateBaddiesNick = this.updateBaddiesNick.bind(this);
         this.removefromBaddies = this.removefromBaddies.bind(this);
         this.playerLoaded = this.playerLoaded.bind(this);
     }
@@ -102,7 +103,7 @@ class Gamemaster extends Component {
         this.setState({outGoingMessage: ""});
     }
 
-    updateBaddies(nickname, model, position) {
+    addToBaddies(nickname, model, position) {
         let baddies = this.state.baddies;
 
         baddies[nickname] = {
@@ -111,6 +112,20 @@ class Gamemaster extends Component {
         };
 
         this.setState({baddies: baddies});
+    }
+
+    updateBaddiesNick(oldnick, newnick) {
+        let baddies = this.state.baddies;
+
+        let baddieObj = baddies[oldnick];
+
+        if (baddieObj) {
+            delete baddies[oldnick];
+
+            baddies[newnick] = baddieObj;
+
+            this.setState({baddies: baddies});
+        }
     }
 
     removefromBaddies(nickname) {
@@ -135,7 +150,8 @@ class Gamemaster extends Component {
                     <Chat
                         chatIsConnected={this.chatIsConnected}
                         chatIsDisconnected={this.chatIsDisconnected}
-                        updateBaddies={this.updateBaddies}
+                        addToBaddies={this.addToBaddies}
+                        updateBaddiesNick={this.updateBaddiesNick}
                         removefromBaddies={this.removefromBaddies}
                         outGoingMessage={this.state.outGoingMessage}
                         messageSent={this.messageSent}

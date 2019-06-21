@@ -76,8 +76,16 @@ class Chat extends Component {
         }
 
         if (typeof data === 'object') {
-            if ("action" in data && "remove" === data.action) {
-                this.props.removefromBaddies(data.nickname);
+            if ("action" in data) {
+                switch (data.action) {
+                    case "update-nick":
+                        this.props.updateBaddiesNick(data.old_nickname, data.new_nickname);
+                        break;
+                    case "remove":
+                        this.props.removefromBaddies(data.nickname);
+                        break;
+                    default:
+                }
                 return;
             }
 
@@ -85,7 +93,7 @@ class Chat extends Component {
 
             let model = ("model" in data && data.model) ? data.model : "";
 
-            this.props.updateBaddies(nick, model, position);
+            this.props.addToBaddies(nick, model, position);
             return;
         }
 
