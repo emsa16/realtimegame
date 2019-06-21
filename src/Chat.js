@@ -11,8 +11,8 @@ class Chat extends Component {
     constructor(props) {
         super(props);
         this.websocket = "";
-        this.url = "ws://localhost:1337";
-        // this.url = "wss://ws.emilsandberg.com/";
+        // this.url = "ws://localhost:1337";
+        this.url = "wss://game-chat.emilsandberg.com/";
         this.state = {
             message: "",
             output: "",
