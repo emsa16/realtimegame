@@ -11,8 +11,6 @@ class Chat extends Component {
     constructor(props) {
         super(props);
         this.websocket = "";
-        // this.url = "ws://localhost:1337";
-        this.url = "wss://game-chat.emilsandberg.com/";
         this.state = {
             message: "",
             output: "",
@@ -197,19 +195,16 @@ class Chat extends Component {
             return;
         }
 
-        let fullUrl = `${this.url}?token=${this.props.loginToken}&nickname=${this.props.nickname}`;
+        console.log(`Connecting to: ${this.props.url}`);
+        this.websocket = new WebSocket(this.props.url, 'broadcast');
 
-        console.log(`Connecting to: ${this.url}`);
-        this.websocket = new WebSocket(fullUrl, 'broadcast');
-
-        this.websocket.onerror = function() {
+        this.websocket.onerror = () => {
             this.setState({
                 "conn_status": "Connection error (invalid token?)"
             });
         };
-        this.websocket.onerror = this.websocket.onerror.bind(this);
 
-        this.websocket.onopen = function() {
+        this.websocket.onopen = () => {
             console.log("The websocket is now open.");
             this.outputLog("You are now connected to chat.");
             this.setState({
@@ -219,15 +214,13 @@ class Chat extends Component {
             });
             this.props.chatIsConnected();
         };
-        this.websocket.onopen = this.websocket.onopen.bind(this);
 
-        this.websocket.onmessage = function(event) {
+        this.websocket.onmessage = (event) => {
             console.log(`Receiving message: ${event.data}`);
             this.parseIncomingMessage(event.data);
         };
-        this.websocket.onmessage = this.websocket.onmessage.bind(this);
 
-        this.websocket.onclose = function(event) {
+        this.websocket.onclose = (event) => {
             this.props.chatIsDisconnected();
             if (1006 === event.code) {
                 console.log("The websocket closed unexpectedly.");
@@ -247,7 +240,6 @@ class Chat extends Component {
                 "close_button_color": "#D5DBDB"
             });
         };
-        this.websocket.onclose = this.websocket.onclose.bind(this);
     }
 
 

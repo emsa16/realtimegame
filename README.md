@@ -8,7 +8,7 @@
 
 This repo is the frontend half of a realtime game prototype. The backend can be found [here](https://github.com/emsa16/realtimegame-backend).
 
-This project uses React and was bootstrapped with [Create React App](https://github.com/facebook/create-react-app). There are Dockerfiles available to test the project in development mode in different versions of Node.
+This project uses React and was bootstrapped with [Create React App](https://github.com/facebook/create-react-app). Create React App includes the Jest test runner. Additional testing utilities are Enzyme, which helps with rendering and analyzing React components, and Mock Socket, which creats a mock Websocket server to help test the chat frontend part. There are Dockerfiles available to test the project in development mode in different versions of Node.
 
 
 ## Requirements

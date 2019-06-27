@@ -6,16 +6,16 @@ import * as ReactDOM from 'react-dom';
 class MessageContainer extends PureComponent {
     constructor(props) {
         super(props);
-        this.messageContainer = React.createRef();
+        this.MessageInnerContainer = React.createRef();
     }
 
     scrollToBottom() {
-        const MessageContainer = this.messageContainer.current;
-        const contentHeight = MessageContainer.scrollHeight;
-        const windowHeight = MessageContainer.clientHeight;
+        const MessageInnerContainer = this.MessageInnerContainer.current;
+        const contentHeight = MessageInnerContainer.scrollHeight;
+        const windowHeight = MessageInnerContainer.clientHeight;
         const scrollAway = contentHeight - windowHeight;
 
-        ReactDOM.findDOMNode(MessageContainer).scrollTop = scrollAway;
+        ReactDOM.findDOMNode(MessageInnerContainer).scrollTop = scrollAway;
     }
 
     componentDidUpdate() {
@@ -24,7 +24,7 @@ class MessageContainer extends PureComponent {
 
     render() {
         return (
-            <div ref={this.messageContainer} id="MessageContainer" className="MessageContainer">
+            <div ref={this.MessageInnerContainer} id="MessageContainer" className="MessageContainer">
                 <div className="MessagesList" dangerouslySetInnerHTML={ {__html: this.props.output} } />
             </div>
         );

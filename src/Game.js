@@ -160,18 +160,25 @@ class Game extends Component {
         let player = this.props.player;
 
         if (Object.keys(player).length > 0) {
+            this.props.playerLoaded();
             let [x, y, dir] = player.position.split(',');
 
             let baddieDir = dir === "l" ? "baddie-left " : " ";
 
-            this.setState({
-                nickname: player.nickname,
-                baddie_model: player.model,
-                baddie_dir: baddieDir,
-                baddie_x: parseInt(x),
-                baddie_y: parseInt(y)
-            });
-            this.props.playerLoaded();
+            if (this.state.nickname !== player.nickname ||
+                this.state.baddie_model !== player.model ||
+                this.state.baddie_dir !== baddieDir ||
+                this.state.baddie_x !== parseInt(x) ||
+                this.state.baddie_y !== parseInt(y)
+            ) {
+                this.setState({
+                    nickname: player.nickname,
+                    baddie_model: player.model,
+                    baddie_dir: baddieDir,
+                    baddie_x: parseInt(x),
+                    baddie_y: parseInt(y)
+                });
+            }
         }
     }
 
@@ -186,7 +193,7 @@ class Game extends Component {
                     left: this.state.baddie_x * TILESIZE + "px",
                     top: this.state.baddie_y * TILESIZE + "px"
                 }}
-                className = {"baddie-container"}
+                className = {"baddie-container own-baddie"}
             >
                 <div
                     className = {"baddie baddie-"

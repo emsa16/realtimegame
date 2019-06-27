@@ -77,12 +77,15 @@ class Player extends Component {
         let player = this.props.player;
 
         if (Object.keys(player).length > 0) {
-            this.setState({
-                nickname: player.nickname,
-                model: player.model
-            });
-            this.oldnick = player.nickname;
-            this.oldmodel = player.model;
+            this.props.playerLoaded();
+            if (this.state.nickname !== player.nickname || this.state.model !== player.model) {
+                this.setState({
+                    nickname: player.nickname,
+                    model: player.model
+                });
+                this.oldnick = player.nickname;
+                this.oldmodel = player.model;
+            }
         }
     }
 
@@ -119,7 +122,7 @@ class Player extends Component {
                     </div>
 
                     <input type="submit" value="Save" />
-                    <div>{this.state.status}</div>
+                    <div className="form-status">{this.state.status}</div>
                 </form>
             </div>
         );

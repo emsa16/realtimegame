@@ -138,6 +138,8 @@ class Gamemaster extends Component {
     }
 
     render() {
+        const chatUrl = api.ws + "?token=" + this.props.loginToken + "&nickname=" + this.state.nickname;
+
         return (
             <div className="gamemaster-container">
                 <div className="game-container">
@@ -149,6 +151,7 @@ class Gamemaster extends Component {
                         isConnected={this.state.isConnected}
                     />
                     <Chat
+                        url={chatUrl}
                         chatIsConnected={this.chatIsConnected}
                         chatIsDisconnected={this.chatIsDisconnected}
                         addToBaddies={this.addToBaddies}
@@ -156,13 +159,12 @@ class Gamemaster extends Component {
                         removefromBaddies={this.removefromBaddies}
                         outGoingMessage={this.state.outGoingMessage}
                         messageSent={this.messageSent}
-                        loginToken={this.props.loginToken}
-                        nickname={this.state.nickname}
                         playerIsLoaded={this.state.playerIsLoaded}
                     />
                 </div>
                 <Player
                     loginToken={this.props.loginToken}
+                    playerLoaded={this.playerLoaded}
                     playerCreated={this.playerCreated}
                     player={this.state.player}
                     isConnected={this.state.isConnected}
