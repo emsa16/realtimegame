@@ -6,7 +6,7 @@
     "preinstall": "([ -d .bin ] || mkdir .bin) && ([ -d build ] || mkdir build) && rm -rf build/*",
     "clean": "rm -rf build cache/*/* npm-debug.log coverage",
     "preclean-all": "yarn clean",
-    "clean-all": "rm -rf .bin vendor node_modules yarn.lock",
+    "clean-all": "rm -rf .bin vendor node_modules yarn.lock package-lock.json",
     "pretest": "yarn stylelint && yarn eslint",
     "test": "react-scripts test --coverage --verbose --silent",
     "start": "react-scripts start",
@@ -58,6 +58,6 @@
     "react": "^16.8.2",
     "react-dom": "^16.8.2",
     "react-router-dom": "^5.0.1",
-    "react-scripts": "^3.0.1"
+    "react-scripts": "^2.1.5"
   }
 }
