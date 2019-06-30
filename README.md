@@ -58,7 +58,7 @@ All of these requirements were implemented except for 11 and 13. Requirement 11 
 The frontend consists of the following primary parts:
 - [React](https://reactjs.org/): A user interface library that works as the framework for the whole frontend. The project has been bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
     - Motivation: React is currently the most popular frontend framework ([source](https://2018.stateofjs.com/front-end-frameworks/overview/)). It provides control over updating components separately, without reloading the whole page, which would seem to be a good thing when the project is to build a realtime browser game.
-- [Yarn]((https://yarnpkg.com/lang/en/)): An alternative package manager to NPM, and which works in a very similar way.
+- [Yarn](https://yarnpkg.com/lang/en/): An alternative package manager to NPM, and which works in a very similar way.
     - Motivation: Yarn works better with React apps and had to be used for this project, as there was a version conflict among the package dependencies. Also, its commands are a bit shorter.
 - [Jest](https://jestjs.io/): A test runner that is included in the Create React App.
     - Motivation: As Jest is the default option when using Create React App and it provides code coverage as well, there was no reason to change it out.
@@ -156,10 +156,10 @@ In order to be able to properly test a React application, Enzyme is an invaluabl
 
 ## CI
 The CI chain consists of the following tools, which all have their badges included at the top of this document:
-- [Travis](https://travis-ci.org/emsa16/realtimegame-backend): Build tool, provides Code Climate with code coverage report
-- [CircleCI](https://circleci.com/gh/emsa16/realtimegame-backend): Build tool
-- [Code Climate](https://codeclimate.com/github/emsa16/realtimegame-backend): Code quality analysis and code coverage (two separate badges)
-- [Better Code Hub](https://bettercodehub.com/results/emsa16/realtimegame-backend): Code quality analysis
+- [Travis](https://travis-ci.org/emsa16/realtimegame-frontend): Build tool, provides Code Climate with code coverage report
+- [CircleCI](https://circleci.com/gh/emsa16/realtimegame-frontend): Build tool
+- [Code Climate](https://codeclimate.com/github/emsa16/realtimegame-frontend): Code quality analysis and code coverage (two separate badges)
+- [Better Code Hub](https://bettercodehub.com/results/emsa16/realtimegame-frontend): Code quality analysis
 
 The reason for having two build tools and two code quality tools is for redundancy. The tools all work a bit differently from each other, and an issue might go past one of the tools but is then picked by another. All of the tools provide a nice user interface which is why these tools are chosen instead of other alternatives.
 
