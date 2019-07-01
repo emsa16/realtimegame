@@ -1,6 +1,6 @@
 {
   "name": "app-frontend",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "description": "frontend for realtime game app",
   "scripts": {
     "preinstall": "([ -d .bin ] || mkdir .bin) && ([ -d build ] || mkdir build) && rm -rf build/*",
