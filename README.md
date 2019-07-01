@@ -45,8 +45,8 @@ This is a list of features that were specified before development began (this in
 12. The user can talk to other users by typing text into a text field and sending it to the game
 13. Messages are displayed in speech bubbles in the game world in realtime
 14. Messages are also displayed in a chat window in realtime
-15. The user can leave the game at any point, which removes their avatar from the game world and other uses cannot see it any longer. The avatar's current position is stored in a database.
-16. The user can logout of the site, which also removes their avatar from the game world, but stores details about it in a database
+15. The user can leave the game at any point, which removes their avatar from the game world and other users cannot see it any longer. The avatar's current position is stored in a database.
+16. The user can log out of the site, which also removes their avatar from the game world, but stores details about it in a database
 17. The project uses the author's [chat server module](https://www.npmjs.com/package/@emsa16/chat-server)
 18. The project can be run in Docker
 19. The project includes unit tests which cover at least 70% of the code
@@ -57,9 +57,9 @@ All of these requirements were implemented except for 11 and 13. Requirement 11 
 #### Technologies
 The frontend consists of the following primary parts:
 - [React](https://reactjs.org/): A user interface library that works as the framework for the whole frontend. The project has been bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
-    - Motivation: React is currently the most popular frontend framework ([source](https://2018.stateofjs.com/front-end-frameworks/overview/)). It provides control over updating components separately, without reloading the whole page, which would seem to be a good thing when the project is to build a realtime browser game.
+    - Motivation: React is currently the most popular frontend framework ([source](https://2018.stateofjs.com/front-end-frameworks/overview/)). It provides control over updating components separately, without reloading the whole page, which would seem to be a good thing when the project consists of building a realtime browser game.
 - [Yarn](https://yarnpkg.com/lang/en/): An alternative package manager to NPM, and which works in a very similar way.
-    - Motivation: Yarn works better with React apps and had to be used for this project, as there was a version conflict among the package dependencies. Also, its commands are a bit shorter.
+    - Motivation: Yarn works better with React apps and had to be used for this project, as there was a version conflict among the package dependencies that NPM could not solve. Also, its commands are a bit shorter, making it faster to work with on the command line.
 - [Jest](https://jestjs.io/): A test runner that is included in the Create React App.
     - Motivation: As Jest is the default option when using Create React App and it provides code coverage as well, there was no reason to change it out.
 - [Docker](https://www.docker.com/get-started): Virtualization platform that gives the ability to run and test the project in different environments
@@ -68,7 +68,7 @@ The frontend consists of the following primary parts:
 #### Evaluation
 If you have not worked with component-based libraries before, it can take some time to get used to the structures that this concept forces on the code, especially how to get components to work with each other can be a bit tedious. Still, once the foundation has been laid, React works well for the purposes of this project. Having each part of the website in a separate component helps to organize the project and separate logic and communication with the backend.
 
-As Jest and React are both maintained by Facebook, they work very well together. Still, testing React projects can be tough, although this is probably not unique to React but is the same for similar for frameworks such as Vue and Angular.
+As Jest and React are both maintained by Facebook, they work very well together. Still, testing React projects can be tough, although this is probably not unique to React but is the same for similar frameworks such as Vue and Angular.
 
 As this is only a prototype, a lot of the control is in the frontend. This means that restrictions implemented only on the frontend (e.g. restrictions on chat commands) can be bypassed, meaning that for a production-grade version of this project, more control needs to be added to the backend for security reasons.
 
@@ -113,7 +113,7 @@ The following environment variables can be set by inserting these before above c
 The test suite consists of the following tools:
 - [Jest](https://jestjs.io/): Runs the unit tests that are found in the project. To make the import paths as short as possible, tests in React are commonly placed in the same folder as the file they are testing. As Jest is the default option when using Create React App and it provides code coverage as well, there was no reason to change it out.
 - [Enzyme](https://airbnb.io/enzyme/): Assists Jest by rendering and analyzing React components, which is good when you want test the DOM
-- [Mock Socket](https://github.com/thoov/mock-socket): Assists Jest by giving the tools to mock a WebSocket server, which helps the chat client.
+- [Mock Socket](https://github.com/thoov/mock-socket): Assists Jest by giving the tools to mock a WebSocket server, which helps to test the chat client
 - [stylelint](https://stylelint.io/): lints CSS files
 - [eslint](https://eslint.org/): lints JavaScript files
 
@@ -130,7 +130,7 @@ The test suite consists of the following tools:
 #### Code coverage
 Jest includes code coverage, which is printed to the console at the end of every test run. A more extensive and visual code coverage report can be viewed in the browser by opening `coverage/lcov-report/index.html` (which can be found after tests are run).
 
-The tests cover 96% of the project. It was quite challenging to get there, primarily how to work around the WebSocket object that is used in the frontend. Using the Mock Socket module helped a lot, but some rewriting was also needed of the frontend for the tests to work, but this also helped improve the code structure. Another revelation that helped towards getting the high coverage was that component methods can be called in tests just like any class method, if the `.instance()` method is used ([read more](https://airbnb.io/enzyme/docs/api/ReactWrapper/instance.html)).
+The tests cover 96% of the project. It was quite challenging to get there, primarily how to work around the WebSocket object that is used in the frontend. Using the Mock Socket module helped a lot, but some rewriting of the frontend was also needed for the tests to work, but this also helped improve the code structure. Another revelation that helped towards getting the high coverage was that component methods can be called in tests just like any class method, if the `.instance()` method is used ([read more](https://airbnb.io/enzyme/docs/api/ReactWrapper/instance.html)).
 
 There are only 12 statements in the whole project that remain untested. `index.js` is completely untested, but it only consists of five lines and contains no conditional logic or return values to test. There are also a couple of error conditions during fetch requests that are hard to replicate and a few other one-liners that are difficult to reach during tests.
 
@@ -167,7 +167,7 @@ The reason for having two build tools and two code quality tools is for redundan
 There are some limitations to keep in mind, which are not exclusive to above tools. The build tools install the project and run the `yarn test` command, but they never actually run the project, meaning that issues that are not visible to unit tests might go unnoticed, e.g. layout issues. The code quality tools can only perform static code analysis, meaning that they might grade parts of the code unfairly, or miss less obvious issues.
 
 #### Evaluation
-At times, builds fail because of some issue that needs to be fixed. Other times, the issue only exists in the build tool environment but nowhere else and adjustments have to be made only to satisfy the build tool, which is unfortunate. One issue in particular that could not be completely resolved was that the `react-scripts` package could not be updated to version 3 to solve some dependency vulnerabilities, because the build tools crashed when the project used the newer version and the package had to be downgraded.
+At times, builds fail because of some issue that needs to be fixed. Other times, the issue only exists in the build tool environment but nowhere else and adjustments have to be made only to satisfy the build tool, which is unfortunate. One issue in particular that could not be completely resolved was that the `react-scripts` package could not be updated to version 3 to solve some dependency vulnerabilities, because the build tools crashed when the project used the newer version and this module had to be downgraded.
 
 When all is going well however, these tools are not really noticed, meaning that they give some assurance that the project is working, without needing much attention from the developer. However, the risk is, especially with the code quality tools, that you become blind to the grade inside the badge and don't really think to try and fix some of the issues discovered by the tool.
 
@@ -178,7 +178,7 @@ Code Climate rates this project a D. There are two categories of issues identifi
 
 
 ## Realtime
-The realtime aspect of this browser game prototype lies mostly on the backend and is described in more detail [here](https://github.com/emsa16/realtimegame-backend). The part of it that is visible in the frontend part is the chat client and the game world. The `src/Chat` component connects to the chat server with the use of the standard WebSocket API. The same component also renders the chat client with its message log and connection controls. Messages are sent through the chat client in realtime. The `src/Game` component renders the game world and the player avatar inside it. When the player moves inside the world, the movement action is sent to the chat component which sends it to the chat server. In this way, the movement is immediately shown for other players that are in the game world, making the game world realtime as well. Finally, changing the avatar's appearance and name is also immediately reflected in other users' browsers, with the help of the socket connections.
+The realtime aspect of this browser game prototype lies mostly on the backend and is described in more detail [here](https://github.com/emsa16/realtimegame-backend). The part of it that is visible on the frontend is the chat client and the game world. The `src/Chat` component connects to the chat server with the use of the standard WebSocket API. The same component also renders the chat client with its message log and connection controls. Messages are sent through the chat client in realtime. The `src/Game` component renders the game world and the player avatar inside it. When the player moves inside the world, the movement action is sent to the chat component which sends it to the chat server. In this way, the movement is immediately shown for other players that are in the game world, making the game world realtime as well. Finally, changing the avatar's appearance and name is also immediately reflected in other users' browsers, with the help of the socket connections.
 
 There was never any need to use a WebSocket library on the frontend, as the plain WebSocket object was easy to work with and the client did not need to do complex things.
 
