@@ -96,16 +96,16 @@ As this is only a prototype, a lot of the control is in the frontend. This means
     $ yarn deploy   # Builds the app for production and transfers files to production server (requires SSH authentication)
 
     Running the app in development mode in Docker containers
-    $ yarn docker-node1     # node latest, alpine version (test on http://localhost:8030)
-    $ yarn docker-node2     # node 10, alpine version (test on http://localhost:8031)
-    $ yarn docker-node3     # node 8, alpine version (test on http://localhost:8032)
+    $ yarn docker-node1     # node latest, alpine version (test on http://localhost:8030 (default port))
+    $ yarn docker-node2     # node 10, alpine version (test on http://localhost:8031 (default port))
+    $ yarn docker-node3     # node 8, alpine version (test on http://localhost:8032 (default port))
     $ yarn docker-start     # Runs all three containers (see ports above)
     $ yarn docker-stop      # Stops all active containers
     $ yarn docker-build     # Builds images for above containers from their respective Dockerfile
 
 #### Environment variables
 The following environment variables can be set by inserting these before above commands:
-- `PORT=XXXX` - set server port when running the app in development mode (default: 3000)
+- `PORT=XXXX` - set server port when running the app in development mode (default: 3000). When used with Docker containers, this sets the port that connects to the app running in the container. Default port values for the Docker containers can be seen above.
 
 
 

@@ -6,7 +6,7 @@ services:
             context: .
             dockerfile: docker/Dockerfile-node-latest
         ports:
-            - "8030:3000"
+            - "${PORT:-8030}:3000"
         volumes:
             - ./:/home/node/app
             - /home/node/app/node_modules/
@@ -16,7 +16,7 @@ services:
             context: .
             dockerfile: docker/Dockerfile-node-10
         ports:
-            - "8031:3000"
+            - "${PORT:-8031}:3000"
         volumes:
             - ./:/home/node/app
             - /home/node/app/node_modules/
@@ -26,7 +26,7 @@ services:
             context: .
             dockerfile: docker/Dockerfile-node-8
         ports:
-            - "8032:3000"
+            - "${PORT:-8032}:3000"
         volumes:
             - ./:/home/node/app
             - /home/node/app/node_modules/
